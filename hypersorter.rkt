@@ -429,7 +429,8 @@
                              (equal? "" new-dir-name))
                        (directory-exists? (build-path dst-dir new-dir-name))
                        (make-directory
-                        (build-path dst-dir new-dir-name) #o755))))))
+                        (build-path dst-dir new-dir-name) #o755)
+                       (update-buttons))))))
 
 (define newdir-btn (new button%
      [parent buttons]
