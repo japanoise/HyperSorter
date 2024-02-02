@@ -40,6 +40,17 @@ keyboard - see the bindings below.
 
 ## Keybindings
 
+I have tried to make HyperSorter as accessible as possible. The program can be
+used entirely with the keyboard - this was an explicit design goal. However,
+Racket's support for accessibility measures is far from there:
+
+- [Five-year-old accessibility issue on
+  DrRacket](https://github.com/racket/drracket/issues/219)
+- [Very quiet newsgroup discussions on
+  accessibility](https://groups.google.com/g/racket-users/c/JTNyF1cR8dQ)
+- [A 2020 report on accessibility issues in
+  DrRacket](https://www.cameronkleung.com/project/drracket-accessibility)
+
 ### General
 
 - Quit the program - `CTRL-Q` or `ALT-F Q`
