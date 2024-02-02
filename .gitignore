@@ -1,3 +1,6 @@
 *\~
 compiled
 *.rktd
+*.exe
+/hypersorter
+/hypersorter-*
