@@ -229,6 +229,12 @@
                      [(eq? keycode #\=) (zoom-in)]
                      [(eq? keycode #\,) (zoom-out)]
                      [(eq? keycode #\.) (zoom-in)]
+                     [(eq? keycode #\s) (begin
+                                          (set! candidates
+                                                (append (cdr candidates)
+                                                        (list (car
+                                                               candidates))))
+                                          (update-candidates-string))]
                      [(eq? keycode #\c) (begin
                                           (set! offset-x 0)
                                           (set! offset-y 0)

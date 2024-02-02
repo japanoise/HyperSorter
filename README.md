@@ -80,7 +80,7 @@ Or, if you use a screenreader and it works for you, please let me know.
 
 - Start typing to show a list of candidates (directories which the program
   thinks match what you're typing)
-- Press `TAB` to cycle through the candidates
+- Press `TAB` or `CTRL-S` to cycle through the candidates
 - Press `ENTER` to sort the image into the current candidate
 - Press `CTRL-U` or `CTRL-G` to delete the current search term
 
