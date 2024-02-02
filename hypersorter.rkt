@@ -412,11 +412,7 @@
                           (update-status)
                           (next-img)))]))
 
-(define newdir-btn (new button%
-     [parent buttons]
-     [label "New subdirectory"]
-     [stretchable-width #t]
-     [callback (lambda (b e)
+(define new-subdirectory (lambda (b e)
                  (unless (eq? dst-dir "")
                    (let ([new-dir-name
                           (get-text-from-user "New directory"
@@ -427,7 +423,13 @@
                              (equal? "" new-dir-name))
                        (directory-exists? (build-path dst-dir new-dir-name))
                        (make-directory
-                        (build-path dst-dir new-dir-name) #o755)))))]))
+                        (build-path dst-dir new-dir-name) #o755))))))
+
+(define newdir-btn (new button%
+     [parent buttons]
+     [label "New subdirectory"]
+     [stretchable-width #t]
+     [callback new-subdirectory]))
 
 (new pane% [parent buttons] [stretchable-height #f] [min-height 10])
 
@@ -642,6 +644,10 @@
      [label "&New Directory"]
      [parent file-menu]
      [callback (lambda (m c) (send new-dir-dialog show #t))])
+(new menu-item%
+     [label "New &Subirectory"]
+     [parent file-menu]
+     [callback new-subdirectory])
 (new menu-item%
      [label "&Quit"]
      [parent file-menu]

@@ -58,6 +58,7 @@ Racket's support for accessibility measures is far from there:
 ### Directories
 
 - New directory - `ALT-F N`
+- New subdirectory - `ALT-F S`
 - Open directory manager - `ALT-D M`
 - Switch directory - `ALT-D` then use arrow keys to select the directory, or
   open directory manager (`ALT-D M`) and select directory from the list
