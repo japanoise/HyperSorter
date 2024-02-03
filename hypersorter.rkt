@@ -3,6 +3,7 @@
 (require racket/gui/base)
 (require file/glob)
 (require openssl/sha1)
+(require net/sendurl)
 
 (struct sort-set (dst sortme wname use-wname?))
 
@@ -25,6 +26,10 @@
 (define program-name "HyperSorter")
 
 (define program-name-lower (string-downcase program-name))
+
+(define program-version "beta")
+
+(define program-homepage "https://github.com/japanoise/HyperSorter")
 
 ;; --- OH NOES! GLOBAL STATE!!!!! ---
 ;; Paths
@@ -60,6 +65,17 @@
                    [label program-name]
                    [width 1280]
                    [height 800]))
+
+(define (about) (message-box
+               (format "About ~a" program-name)
+               (format "~a version ~a~n~a~n~a"
+                       program-name
+                       program-version
+                       "Unleashed on an unsuspecting world by japanoise"
+                       "Copyright (C) 2024 japanoise")
+               frame (list 'ok)))
+
+(application-about-handler about)
 
 (define (error-message msg) (message-box
                              program-name msg frame (list 'ok 'stop)))
@@ -674,6 +690,16 @@
      [shortcut #\d]
      [callback (lambda (m c) (send dir-dialog show #t))])
 (new separator-menu-item% [parent dir-menu])
+
+(define help-menu (new menu% [parent menubar] [label "&Help"]))
+(new menu-item%
+     [label (format "&About ~a" program-name)]
+     [parent help-menu]
+     [callback (lambda (m c) (about))])
+(new menu-item%
+     [label "&Webpage"]
+     [parent help-menu]
+     [callback (lambda (m c) (send-url program-homepage))])
 
 ;; A menu item that switches to a given directory
 (define dir-menu-item%
