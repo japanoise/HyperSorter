@@ -408,15 +408,17 @@
           (lambda (x y)
             (string-ci<? (path->string x) (path->string y)))))))
 
+(define skip-button-action (lambda (b e) (unless (<= remaining 0)
+                          (set! skipped (add1 skipped))
+                          (set! remaining (sub1 remaining))
+                          (update-status)
+                          (next-img))))
+
 (define skip-btn (new button%
      [parent buttons]
      [label "Skip this one"]
      [stretchable-width #t]
-     [callback (lambda (b e) (unless (<= remaining 0)
-                          (set! skipped (add1 skipped))
-                          (set! remaining (sub1 remaining))
-                          (update-status)
-                          (next-img)))]))
+     [callback skip-button-action]))
 
 (define new-subdirectory (lambda (b e)
                  (unless (eq? dst-dir "")
@@ -655,6 +657,10 @@
      [label "New &Subirectory"]
      [parent file-menu]
      [callback new-subdirectory])
+(new menu-item%
+     [label "S&kip this one"]
+     [parent file-menu]
+     [callback skip-button-action])
 (new menu-item%
      [label "&Quit"]
      [parent file-menu]

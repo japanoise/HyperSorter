@@ -83,6 +83,7 @@ Or, if you use a screenreader and it works for you, please let me know.
 - Press `TAB` or `CTRL-S` to cycle through the candidates
 - Press `ENTER` to sort the image into the current candidate
 - Press `CTRL-U` or `CTRL-G` to delete the current search term
+- Press `ALT-F K` to skip the current image
 
 ## Building
 
