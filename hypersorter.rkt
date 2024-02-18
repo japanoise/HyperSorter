@@ -36,12 +36,11 @@
 (define dst-dir "")
 (define sort-dir "")
 (define config-dir
-  (case (system-type 'os)
-    [('windows) (build-path (getenv "userprofile") program-name-lower)]
-    [else
-     (if (getenv "XDG_CONFIG_HOME")
-         (build-path (getenv "XDG_CONFIG_HOME") program-name-lower)
-         (build-path (expand-user-path "~/.config/") program-name-lower))]))
+  (if (eq? (system-type 'os) 'windows)
+      (build-path (getenv "userprofile") program-name-lower)
+      (if (getenv "XDG_CONFIG_HOME")
+          (build-path (getenv "XDG_CONFIG_HOME") program-name-lower)
+          (build-path (expand-user-path "~/.config/") program-name-lower))))
 (unless (directory-exists? config-dir) (make-directory config-dir #o755))
 
 ;; Lists of files/dirs
