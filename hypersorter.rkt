@@ -352,7 +352,10 @@
           (send dc set-background outside-canvas)
           (send dc clear)
           (if (eq? 'none bmp)
-              (send dc draw-text "<No image loaded>" 1 1)
+              (begin
+                (send dc set-text-background text-background)
+                (send dc set-text-mode 'solid)
+                (send dc draw-text "<No image loaded>" 1 1))
               (begin
                 (send dc set-scale (/ scale 100) (/ scale 100))
                 (send dc draw-bitmap bmp offset-x offset-y)
