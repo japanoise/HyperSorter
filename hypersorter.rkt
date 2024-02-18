@@ -94,7 +94,10 @@
                         [min-height 10]
                         [stretchable-height #f]))
 
-(define status (new message% [label "No files to sort."] [parent status-bar]))
+(define status (new message%
+                    [label "No files to sort."]
+                    [parent status-bar]
+                    [auto-resize #t]))
 (new message% [label ""] [parent status-bar] [stretchable-width #t])
 
 (define (update-status)
