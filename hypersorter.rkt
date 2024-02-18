@@ -150,6 +150,40 @@
     (define candidates '())
     (define candidates-string "")
     (define term-changed #f)
+    (define scale-mode #f)
+
+    (define (update-scale-args height width)
+      (let ([this-height height]
+            [this-width width]
+            [bmp-height (send bmp get-height)]
+            [bmp-width (send bmp get-width)])
+        (let loop ([desired-height bmp-height]
+                   [desired-width bmp-width]
+                   [desired-scale 100])
+          (if (or (> desired-height this-height)
+                  (> desired-width this-width))
+              (loop (/ desired-height 2)
+                    (/ desired-width 2)
+                    (/ desired-scale 2))
+              (begin
+                (set! scale desired-scale)
+                (set! offset-y
+                      (* (/ (- this-height desired-height) 2) (/ 100 scale)))
+                (set! offset-x
+                      (* (/ (- this-width desired-width) 2) (/ 100 scale))))))))
+
+    (define (update-scale)
+      (update-scale-args (send this get-height)
+                         (send this get-width)))
+
+    (define/public (toggle-scale)
+      (set! scale-mode (not scale-mode))
+      (when scale-mode
+        (update-scale)
+        (send this refresh)))
+
+    (define/override (on-size width height)
+      (when scale-mode (update-scale-args height width)))
 
     (define (update-candidates-string)
       (set! candidates-string (format "~v" candidates)))
@@ -342,6 +376,7 @@
         (set! bmp
               (with-handlers ([exn:fail? (lambda (e) 'none)])
                 (make-object bitmap% (car to-sort) 'unknown/alpha #f #t)))
+        (when scale-mode (update-scale))
         (send this focus)
         (send this refresh)
         (end-busy-cursor)))
@@ -682,6 +717,12 @@
      [parent file-menu]
      [shortcut #\q]
      [callback (lambda (m c) (send frame on-exit))])
+
+(define view-menu (new menu% [parent menubar] [label "&View"]))
+(new checkable-menu-item%
+     [label "&Scaling Mode"]
+     [parent view-menu]
+     [callback (lambda (m c) (send img-view toggle-scale))])
 
 (define dir-menu (new menu% [parent menubar] [label "&Directory"]))
 (new menu-item%
