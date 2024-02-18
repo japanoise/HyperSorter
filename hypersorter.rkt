@@ -152,24 +152,25 @@
     (define scale-mode #f)
 
     (define (update-scale-args height width)
-      (let ([this-height height]
-            [this-width width]
-            [bmp-height (send bmp get-height)]
-            [bmp-width (send bmp get-width)])
-        (let loop ([desired-height bmp-height]
-                   [desired-width bmp-width]
-                   [desired-scale 100])
-          (if (or (> desired-height this-height)
-                  (> desired-width this-width))
-              (loop (/ desired-height 2)
-                    (/ desired-width 2)
-                    (/ desired-scale 2))
-              (begin
-                (set! scale desired-scale)
-                (set! offset-y
-                      (* (/ (- this-height desired-height) 2) (/ 100 scale)))
-                (set! offset-x
-                      (* (/ (- this-width desired-width) 2) (/ 100 scale))))))))
+      (unless (eq? 'none bmp)
+        (let ([this-height height]
+              [this-width width]
+              [bmp-height (send bmp get-height)]
+              [bmp-width (send bmp get-width)])
+          (let loop ([desired-height bmp-height]
+                     [desired-width bmp-width]
+                     [desired-scale 100])
+            (if (or (> desired-height this-height)
+                    (> desired-width this-width))
+                (loop (/ desired-height 2)
+                      (/ desired-width 2)
+                      (/ desired-scale 2))
+                (begin
+                  (set! scale desired-scale)
+                  (set! offset-y
+                        (* (/ (- this-height desired-height) 2) (/ 100 scale)))
+                  (set! offset-x
+                        (* (/ (- this-width desired-width) 2) (/ 100 scale)))))))))
 
     (define (update-scale)
       (update-scale-args (send this get-height)
