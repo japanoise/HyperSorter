@@ -15,6 +15,11 @@
 
 (define (existing-path? path) (and (path? path) (directory-exists? path)))
 
+(define (maybe-string->path string-or-path)
+  (if (string? string-or-path)
+      (string->path string-or-path)
+      string-or-path))
+
 (define (my/fmt-number n)
   (cond
     [(< n 10) (format "00~v" n)]
@@ -464,7 +469,7 @@
              (and
               (not (string-prefix? (path->string dir) "."))
               (directory-exists? (build-path dst-dir dir))
-              (not (equal? (build-path dst-dir dir) (string->path sort-dir)))))
+              (not (equal? (build-path dst-dir dir) (maybe-string->path sort-dir)))))
            (directory-list dst-dir))
           (lambda (x y)
             (string-ci<? (path->string x) (path->string y)))))))
