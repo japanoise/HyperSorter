@@ -4,3 +4,4 @@ compiled
 *.exe
 /hypersorter
 /hypersorter-*
+/release/
