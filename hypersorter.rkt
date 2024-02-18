@@ -176,6 +176,14 @@
       (update-scale-args (send this get-height)
                          (send this get-width)))
 
+    (define/public (reset-view)
+      (if scale-mode (update-scale)
+          (begin
+            (set! scale 100)
+            (set! offset-x 0)
+            (set! offset-y 0)))
+      (send this refresh))
+
     (define/public (toggle-scale)
       (set! scale-mode (not scale-mode))
       (when scale-mode
@@ -273,7 +281,6 @@
                    (cond
                      [(or (eq? keycode #\u) (eq? keycode #\g))
                       (update-search-term "")]
-                     [(eq? keycode #\0) (set! scale 100)]
                      [(eq? keycode #\-) (zoom-out)]
                      [(eq? keycode #\+) (zoom-in)]
                      [(eq? keycode #\=) (zoom-in)]
@@ -719,6 +726,11 @@
      [callback (lambda (m c) (send frame on-exit))])
 
 (define view-menu (new menu% [parent menubar] [label "&View"]))
+(new menu-item%
+     [label "&Reset View"]
+     [parent view-menu]
+     [shortcut #\0]
+     [callback (lambda (m c) (send img-view reset-view))])
 (new checkable-menu-item%
      [label "&Scaling Mode"]
      [parent view-menu]
