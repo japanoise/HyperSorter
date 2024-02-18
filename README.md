@@ -1,5 +1,9 @@
 # HyperSorter - visual image sorting
 
+![Screenshot - a picture of a cat in a program window. Buttons to the left
+include various types of cat, an option to create a "new subdirectory", and the
+option to "skip this one"](screenshot.jpg)
+
 HyperSorter is a program that sorts images visually, one at a time.  It displays
 an image in a directory of unsorted images, and gives you a list of directories.
 You can click the button to sort the image into the given directory, or type the
