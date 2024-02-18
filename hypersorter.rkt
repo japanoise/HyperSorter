@@ -128,7 +128,7 @@
 (define img-view%
   (class canvas%
     (define outside-canvas
-      (let ([shade 70]) (make-object color% shade shade shade)))
+      (let ([shade 100]) (make-object color% shade shade shade)))
     (define pale-text
       (let ([shade 200]) (make-object color% shade shade shade)))
     (define text-color
