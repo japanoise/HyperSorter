@@ -1,0 +1,13 @@
+2024-02-18  japanoise  <japanoise@seekrit.club>
+
+	v1.0.0 - Initial release
+
+	A minimum viable product.  It's way better than any previous
+	attempt I've made at this type of program, but there are some
+	possible future avenues for development:
+
+	* TODO: A better config file format (null-separated strings is
+	lazy programmer garbage)
+	* TODO: More config options - store the usage of scale mode in the
+	config file, for example.
+	* TODO: Full CRUD of directory entries

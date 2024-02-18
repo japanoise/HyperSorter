@@ -4,7 +4,7 @@ die() {
     exit 1
 }
 
-version=beta
+version=v1.0.0
 raco=raco
 progname=hypersorter
 reldir=release

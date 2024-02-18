@@ -27,7 +27,7 @@
 
 (define program-name-lower (string-downcase program-name))
 
-(define program-version "beta")
+(define program-version "v1.0.0")
 
 (define program-homepage "https://github.com/japanoise/HyperSorter")
 
