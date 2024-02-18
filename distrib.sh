@@ -8,7 +8,7 @@ version=v1.0.0
 raco=raco
 progname=hypersorter
 reldir=release
-artifact="$reldir"/"$progname"-"$OSTYPE"-"$(uname -m)"-"$version"
+artifact="$progname"-"$OSTYPE"-"$(uname -m)"-"$version"
 mainfile="$progname".rkt
 
 ext=""
@@ -30,14 +30,17 @@ mkdir -pv "$reldir"
 echo "$raco" exe "$mainfile"
 "$raco" exe "$mainfile" || die "compilation error"
 
-echo "$raco" distribute "$artifact" "$progname""$ext"
-"$raco" distribute "$artifact" "$progname""$ext" || die "raco distribute error"
+echo "$raco" distribute "$reldir"/"$artifact" "$progname""$ext"
+"$raco" distribute "$reldir"/"$artifact" "$progname""$ext" || die "raco distribute error"
 
-if [ "$ext" = ".exe" ]
-then
-    # Windows users expect zip files
-    zip -r "$artifact".zip "$artifact" && echo "$artifact".zip created
-else
-    # Everybody else can deal with tar.gz
-    tar cvzf "$artifact".tar.gz "$artifact" && echo "$artifact".tar.gz created
-fi
+(
+    cd "$reldir"
+    if [ "$ext" = ".exe" ]
+    then
+        # Windows users expect zip files
+        zip -r "$artifact".zip "$artifact" && echo "$artifact".zip created
+    else
+        # Everybody else can deal with tar.gz
+        tar cvzf "$artifact".tar.gz "$artifact" && echo "$artifact".tar.gz created
+    fi
+)
